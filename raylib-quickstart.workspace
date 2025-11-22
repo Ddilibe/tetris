@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="raylib-quickstart" Database="" Version="10000">
+  <Project Name="raylib" Path="build/build_files/raylib.project"/>
+  <Project Name="raylib-quickstart" Path="build/build_files/raylib-quickstart.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="x64-Debug" Selected="yes">
+      <Project Name="raylib" ConfigName="x64-Debug"/>
+      <Project Name="raylib-quickstart" ConfigName="x64-Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="x86-Debug" Selected="no">
+      <Project Name="raylib" ConfigName="x86-Debug"/>
+      <Project Name="raylib-quickstart" ConfigName="x86-Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="ARM64-Debug" Selected="no">
+      <Project Name="raylib" ConfigName="ARM64-Debug"/>
+      <Project Name="raylib-quickstart" ConfigName="ARM64-Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="x64-Release" Selected="no">
+      <Project Name="raylib" ConfigName="x64-Release"/>
+      <Project Name="raylib-quickstart" ConfigName="x64-Release"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="x86-Release" Selected="no">
+      <Project Name="raylib" ConfigName="x86-Release"/>
+      <Project Name="raylib-quickstart" ConfigName="x86-Release"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="ARM64-Release" Selected="no">
+      <Project Name="raylib" ConfigName="ARM64-Release"/>
+      <Project Name="raylib-quickstart" ConfigName="ARM64-Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
