@@ -7,6 +7,8 @@ int main_block[3][3];
 
 void play_game()
 {
+    update_moving_state();
+    automate_moving_down();
     // int **current_block = get_current_block();
     // memcpy(main_block, BLOCKA, sizeof(BLOCKA));
     // Texture wabbit = LoadTexture("wabbit_alpha.png");
@@ -15,12 +17,7 @@ void play_game()
     DrawText(TextFormat("Tetris %d", score), 200, 200, 20, WHITE);
     DrawLine(GetScreenWidth() / 2, 0, GetScreenWidth() / 2, GetScreenHeight(), GREEN);
 
-    if (IsKeyPressed(KEY_R))
-    {
-        int **rotated = Rotate_Matrix(main_block, ROTATE_CW);
-        memcpy(main_block, rotated, sizeof(main_block));
-    }
-    else if (IsKeyPressed(KEY_P))
+    if (IsKeyPressed(KEY_P))
     {
         set_game_state(PAUSE_MENU);
     }
@@ -44,15 +41,27 @@ void play_game()
         set_game_state(MAIN_MENU);
     }
 
-    DrawRectangleLines(50, 250, 100, 100, GRAY);
-    DrawRectangleLines(200, 250, 100, 100, GRAY);
-    DrawRectangleLines(350, 250, 100, 100, GRAY);
+    DrawRectangleLines(50, 250, 120, 100, GRAY);
+    DrawRectangleLines(200, 250, 120, 100, GRAY);
+    DrawRectangleLines(350, 250, 120, 100, GRAY);
+
+    BLOCKTYPE *NextA = get_fifo_index(0);
+    BLOCKTYPE *NextB = get_fifo_index(1);
+    BLOCKTYPE *NextC = get_fifo_index(2);
+    Color TypeA = get_color_index(0);
+    Color TypeB = get_color_index(1);
+    Color TypeC = get_color_index(2);
+
+    DrawMatrix(NextA->shape, 2, 9, BLOCK_SIZE, TypeA);
+    DrawMatrix(NextB->shape, 7, 9, BLOCK_SIZE, TypeB);
+    DrawMatrix(NextC->shape, 12, 9, BLOCK_SIZE,TypeC);
 
     // DrawMatrix(BLOCKS[rand() % sizeof(BLOCKS)], 51, 251, BLOCK_SIZE, COLORS[rand() % sizeof(COLORS)]);
 
     // DrawGrid(10, 20);
     BLOCKTYPE *block = get_current_block();
-    DrawMatrix(block->shape, 600, 200, 30, RED);
+    DrawMatrix(block->shape, block->dimension[0], block->dimension[1], BLOCK_SIZE, get_current_color());
+    move_current_block();
 
     level += 1;
 }

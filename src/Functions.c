@@ -1,8 +1,10 @@
 
 #include "tetris.h"
 
-int **Rotate_Matrix(int matrix[3][3], char *direction)
+int **Rotate_Matrix(BLOCKTYPE *newBLock, char *direction)
 {
+    int matrix[3][3];
+    memcpy(matrix, newBLock->shape, sizeof(int[3][3]));
     static int rotated[3][3];
     int i, j;
 
@@ -38,6 +40,12 @@ int **Rotate_Matrix(int matrix[3][3], char *direction)
         }
     }
 
+    // BLOCKTYPE *rotate_block;
+    // rotate_block = malloc(sizeof(BLOCKTYPE));
+    // // memcpy(rotate_block, newBLock, sizeof(BLOCKTYPE));
+    // memcpy(rotate_block->shape, rotated, sizeof(rotated));
+    // *rotate_block->dimension = newBLock->dimension;
+
     return rotated;
 }
 
@@ -49,7 +57,7 @@ void DrawMatrix(int matrix[3][3], int startX, int startY, int blockSize, Color c
         {
             if (matrix[i][j] != 0)
             {
-                DrawRectangle(startX + j * blockSize, startY + i * blockSize, blockSize, blockSize, color);
+                DrawRectangle((startX + j) * blockSize, (startY + i) * blockSize, blockSize, blockSize, color);
             }
         }
     }
@@ -70,6 +78,10 @@ void draw_grid()
             Vector2 mouse_pos = GetMousePosition();
             // printf("Rows: Starts from %d to %d\n", col * BLOCK_SIZE, GRID_ROWS);
             Rectangle block_pos = {col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE};
+            if (IsMouseButtonPressed(1))
+            {
+                LOG_DEBUG("mouse_pos.x, mouse_pos.y");
+            }
             if (CheckCollisionPointRec(mouse_pos, block_pos))
             {
                 DrawRectangle(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, BLUE);
@@ -82,3 +94,4 @@ void draw_grid()
         }
     }
 }
+

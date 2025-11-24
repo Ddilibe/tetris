@@ -10,6 +10,8 @@
 	},
 	"files.associations": {
 		"stdio.h": "c",
-		"rprand.h": "c"
+		"rprand.h": "c",
+		"game_state.h": "c",
+		"typeinfo": "c"
 	}
 }

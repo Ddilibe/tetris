@@ -40,7 +40,7 @@ int main()
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(BLACK);
-		printf("Game State: %d\n", get_game_state());
+		// printf("Game State: %d\n", get_game_state());
 		switch (get_game_state())
 		{
 

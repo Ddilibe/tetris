@@ -4,6 +4,7 @@
 #define GAME_STATE_H
 
 #include "tetris.h"
+#include "logger.h"
 
 // The functions are declared here without the 'static' keyword
 // so they can be called from other source files (main.c, etc.).
@@ -64,5 +65,33 @@ BLOCKTYPE *get_current_block();
  * @param block A pointer to a 2D array representing the new current block
  */
 void set_current_block(BLOCKTYPE *block);
+/**
+ *
+ */
+void move_current_block();
+void automate_moving_down();
+void set_moving_state(int num);
+void update_moving_state();
+int get_moving_state();
+BLOCKTYPE *get_fifo_index(int index);
+void change_block();
+typedef struct BitboardNode
+{
+    BLOCKTYPE value;
+    Color color;
+    struct Node *next;   // next node
+    struct Node *parent; // parent node
+} BitboardNode;
 
+typedef struct
+{
+    BitboardNode *head;
+    long long int value;
+} BitboardList;
+
+void set_current_color(Color color);
+Color get_current_color();
+Color get_color_index(int index);
+
+void *init_bitboard(void);
 #endif // GAME_STATE_H

@@ -17,6 +17,7 @@
 #define RESET 8
 
 #define BLOCK_SIZE 30
+#define STACK_CAPACITY 3
 
 #define LEFTX GetScreenWidth() / 2 + 20
 #define TOPRIGHTY 40
@@ -34,6 +35,7 @@
 #include <time.h>
 
 #include "raylib.h"
+#include "logger.h"
 
 // Data Structures
 /**
@@ -77,41 +79,48 @@ typedef struct blocktype
     long long number;
 } BLOCKTYPE;
 
+typedef struct
+{
+    BLOCKTYPE *items;
+    Color color[3];
+    int size;
+} FIFOStack;
+
 static BLOCKTYPE BLOCKS[7] = {
     // I Block
     {
         .shape = {{0, 0, 0}, {1, 1, 1}, {0, 0, 0}},
-        .dimension = {90, 250},
+        .dimension = {31, 3},
         .number = 54589},
     // J Block
     {
         .shape = {{1, 0, 0}, {1, 1, 1}, {0, 0, 0}},
-        .dimension = {90, 250},
+        .dimension = {31, 3},
         .number = 54590},
     // L Block
     {
         .shape = {{0, 0, 1}, {1, 1, 1}, {0, 0, 0}},
-        .dimension = {90, 250},
+        .dimension = {31, 3},
         .number = 54591},
     // O Block
     {
         .shape = {{1, 1, 0}, {1, 1, 0}, {0, 0, 0}},
-        .dimension = {90, 250},
+        .dimension = {31, 3},
         .number = 54592},
     // S Block
     {
         .shape = {{0, 1, 1}, {1, 1, 0}, {0, 0, 0}},
-        .dimension = {90, 250},
+        .dimension = {31, 3},
         .number = 54593},
     // T Block
     {
         .shape = {{0, 1, 0}, {1, 1, 1}, {0, 0, 0}},
-        .dimension = {90, 250},
+        .dimension = {31, 3},
         .number = 54594},
     // Z Block
     {
         .shape = {{1, 1, 0}, {0, 1, 1}, {0, 0, 0}},
-        .dimension = {90, 250},
+        .dimension = {31, 3},
         .number = 54595}};
 
 // Predefined 3x3 Matrices for Tetris Blocks
@@ -161,7 +170,7 @@ static Color COLORS[] = {LIGHTGRAY, GRAY, DARKGRAY, YELLOW, GOLD, ORANGE, PINK, 
  * @param direction The direction to rotate ("CW" for clockwise, "CCW" for counter-clockwise)
  * @return A pointer to the rotated matrix
  */
-int **Rotate_Matrix(int matrix[3][3], char *direction);
+int **Rotate_Matrix(BLOCKTYPE *newBLock, char *direction);
 /**
  * DrawMatrix
  * @brief Draws a 3x3 matrix on the screen at the specified position with the given block size and color
@@ -263,5 +272,17 @@ void display_pause_menu();
  * @brief Displays the high scores screen
  */
 void display_high_scores();
+/**
+ *
+ */
+bool up_check(BLOCKTYPE *block);
+bool left_check(BLOCKTYPE *block);
+bool down_check(BLOCKTYPE *block);
+bool right_check(BLOCKTYPE *block);
+bool rotation_check(BLOCKTYPE *block);
+
+FIFOStack *init_and_fill_stack();
+
+void print_2d_array(int **array, int rows, int cols);
 
 #endif // TETRIS_H
