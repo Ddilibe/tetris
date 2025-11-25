@@ -77,7 +77,7 @@ BLOCKTYPE *get_fifo_index(int index);
 void change_block();
 typedef struct BitboardNode
 {
-    BLOCKTYPE value;
+    BLOCKTYPE *value;
     Color color;
     struct Node *next;   // next node
     struct Node *parent; // parent node
@@ -88,6 +88,9 @@ typedef struct
     BitboardNode *head;
     long long int value;
 } BitboardList;
+void iterate_and_draw();
+void append();
+BitboardNode *create_node(BitboardNode *parent);
 
 void set_current_color(Color color);
 Color get_current_color();

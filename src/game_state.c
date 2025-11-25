@@ -235,6 +235,7 @@ Color get_color_index(int index)
 
 void change_block()
 {
+    append();
     BLOCKTYPE *blk = &BLOCKS[rand() % 7];
     BLOCKTYPE *oldblk = push_fifo(*blk);
 
@@ -261,4 +262,52 @@ Color get_current_color()
 void set_current_color(Color color)
 {
     CurrentColor = color;
+}
+
+BitboardNode *create_node(BitboardNode *parent)
+{
+    BLOCKTYPE *newBlock = malloc(sizeof(BLOCKTYPE));
+    BLOCKTYPE *oldBlock = get_current_block();
+    memcpy(newBlock, oldBlock, sizeof(BLOCKTYPE));
+
+    BitboardNode *node = malloc(sizeof(BitboardNode));
+
+    node->value = newBlock;
+    node->next = NULL;
+    node->color = get_current_color();
+    node->parent = parent;
+    return node;
+}
+
+void append()
+{
+    if (Bitboard->head == NULL)
+    {
+        Bitboard->head = create_node(NULL);
+        return;
+    }
+
+    BitboardNode *cur = Bitboard->head;
+
+    while (cur->next != NULL)
+        cur = cur->next;
+
+    BitboardNode *new_node = create_node(cur);
+    cur->next = new_node;
+}
+
+void iterate_and_draw()
+{
+    int val = 0;
+    BitboardNode *cur = Bitboard->head;
+    while (cur != NULL)
+    {
+        BLOCKTYPE *current = cur->value;
+        printf("Printing BitboardNode: %d\n", current->shape);
+        DrawMatrix(current->shape, current->dimension[0], current->dimension[1], BLOCK_SIZE, cur->color);
+        cur = cur->next;
+        val++;
+        print_block(current);
+    }
+    printf("Total saved include %d\n", val);
 }

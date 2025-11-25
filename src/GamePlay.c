@@ -54,7 +54,7 @@ void play_game()
 
     DrawMatrix(NextA->shape, 2, 9, BLOCK_SIZE, TypeA);
     DrawMatrix(NextB->shape, 7, 9, BLOCK_SIZE, TypeB);
-    DrawMatrix(NextC->shape, 12, 9, BLOCK_SIZE,TypeC);
+    DrawMatrix(NextC->shape, 12, 9, BLOCK_SIZE, TypeC);
 
     // DrawMatrix(BLOCKS[rand() % sizeof(BLOCKS)], 51, 251, BLOCK_SIZE, COLORS[rand() % sizeof(COLORS)]);
 
@@ -63,6 +63,7 @@ void play_game()
     DrawMatrix(block->shape, block->dimension[0], block->dimension[1], BLOCK_SIZE, get_current_color());
     move_current_block();
 
+    iterate_and_draw();
     level += 1;
 }
 

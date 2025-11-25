@@ -284,5 +284,5 @@ bool rotation_check(BLOCKTYPE *block);
 FIFOStack *init_and_fill_stack();
 
 void print_2d_array(int **array, int rows, int cols);
-
+void print_block(Linked_Node *node);
 #endif // TETRIS_H
