@@ -1,113 +1,120 @@
-# Raylib-Quickstart
-A simple cross platform template for setting up a project with the bleeding edge raylib code.
-Works with C or C++.
+# **Detris: A Raylib-Powered C Tetris Experience** 🎮
 
-## Supported Platforms
-Quickstart supports the main 3 desktop platforms:
-* Windows
-* Linux
-* MacOS
+"Detris" is a classic Tetris game implemented in C, leveraging the powerful `raylib` library for direct hardware access and straightforward graphical rendering. This project focuses on delivering clean, efficient game mechanics and robust state management for a polished and engaging retro gaming experience. It features various game states including a main menu, active gameplay, and high score tracking, along with precise block manipulation and dynamic collision detection.
 
-# Naming projects
-Do not name your game project 'raylib', it will conflict with the raylib library.
+## Installation
 
-# VSCode Users (all platforms)
-*Note* You must have a compiler toolchain installed in addition to vscode.
+To get a local copy of Detris up and running on your system, follow these step-by-step instructions:
 
-* Download the quickstart
-* Rename the folder to your game name
-* Open the folder in VSCode
-* Run the build task ( CTRL+SHIFT+B or F5 )
-* You are good to go
+1.  **Clone the Repository**:
+    Begin by cloning the project repository to your local machine:
 
-# Windows Users
-There are two compiler toolchains available for windows, MinGW-W64 (a free compiler using GCC), and Microsoft Visual Studio
-## Using MinGW-W64
-* Double click the `build-MinGW-W64.bat` file
-* CD into the folder in your terminal
-  * if you are usiing the W64devkit and have not added it to your system path environment variable, you must use the W64devkit.exe terminal, not CMD.exe
-  * If you want to use cmd.exe or any other terminal, please make sure that gcc/mingw-W64 is in your path environment variable.
-* run `make`
-* You are good to go
+    ```bash
+    git clone git@github.com:Ddilibe/tetris.git
+    cd tetris
+    ```
 
-### Note on MinGW-64 versions
-Make sure you have a modern version of MinGW-W64 (not mingw).
-The best place to get it is from the W64devkit from
-https://github.com/skeeto/w64devkit/releases
-or the version installed with the raylib installer
-#### If you have installed raylib from the installer
-Make sure you have added the path
+2.  **Install Premake5**:
+    Detris utilizes `Premake5` for cross-platform build configuration. Download the appropriate binary for your operating system from the [Premake website](https://premake.github.io/download/). Place the `premake5` executable in your system's PATH, or directly into the `build/` directory of the cloned repository. 
 
-`C:\raylib\w64devkit\bin`
+3.  **Generate Build Files**:
+    Navigate to the `build/` directory and execute Premake to generate project files suitable for your development environment:
 
-To your path environment variable so that the compiler that came with raylib can be found.
+    *   For **MinGW-W64 (Windows/Linux via WSL)**:
+        if you are using the W64devkit and have not added it to your system path encironment variable, you must use the W64devkit.exe terminal, not CMD.exe. If you want to use cmd.exe or any other terminal, please make sure that fcc/mingw-W64 is in your path environment variable.
+        ```bash
+        cd build
+        premake5 gmake
+        cd ..
+        ```
+    *   For **Visual Studio 2022 (Windows)**:
+        - Run build-VisualStudio2022.bat
+        - Double click the .sln file that is generated
+        - Develop your game
+        - You are good to go
 
-DO NOT INSTALL ANOTHER MinGW-W64 from another source such as msys2, you don't need it.
+    This process will create the necessary build configuration files (e.g., `Makefile`s or `.sln` files) within the `build/build_files` directory.
 
-## Microsoft Visual Studio
-* Run `build-VisualStudio2022.bat`
-* double click the `.sln` file that is generated
-* develop your game
-* you are good to go
+4.  **Build the Project**:
+    Compile the source code using the generated build files:
 
-# Linux Users
-* CD into the build folder
-* run `./premake5 gmake`
-* CD back to the root
-* run `make`
-* you are good to go
+    *   **Using `make` (MinGW-W64/Linux)**:
+        ```bash
+        # Example for a release x64 build
+        mingw32-make config=release_x64 
+        # Other configurations include: debug_x64, debug_x86, debug_arm64, release_x86, release_arm64
+        ```
+    *   **Using Visual Studio (Windows)**:
+        Open the generated `raylib-quickstart.sln` file (or similar) located in `build/build_files` with Visual Studio 2022. Then, build the `tetris` project from within the IDE.
+    *   **Using Macos**:
+        Open the build folder, run `./premake5 gmake`. Return back to the root and run `make`. You are good to go.
 
-# MacOS Users
-* CD into the build folder
-* run `./premake5.osx gmake`
-* CD back to the root
-* run `make`
-* you are good to go
+## Usage
 
-# Output files
-The built code will be in the bin dir
+After successfully building the project, you can run the executable from your build output directory (e.g., `bin/release/tetris.exe` on Windows or `bin/release/tetris` on Linux).
 
-# Working directories and the resources folder
-The example uses a utility function from `path_utils.h` that will find the resources dir and set it as the current working directory. This is very useful when starting out. If you wish to manage your own working directory you can simply remove the call to the function and the header.
+Navigate and play Detris using the following interactive controls:
 
-# Changing to C++
-Simply rename `src/main.c` to `src/main.cpp` and re-run the steps above and do a clean build.
+*   **Main Menu Navigation**:
+    *   Use your `Mouse` to click on "Start Game", "High Scores", "Options", "Instructions", or "Exit" buttons.
 
-# Using your own code
-Simply remove `src/main.c` and replace it with your code, and re-run the steps above and do a clean build.
+*   **Gameplay Controls**:
+    *   `Arrow Left` / `Arrow Right`: Move the currently falling block horizontally across the grid.
+    *   `Arrow Down`: Accelerate the downward movement of the current block.
+    *   `Arrow Up`: Unconventionally, this allows moving the block upwards for tactical repositioning.
+    *   `R`: Rotate the current block clockwise.
+    *   `P` or `Mouse Click` on "Pause" button: Pause the game and enter the Pause Menu.
+    *   `Mouse Click` on "Reset" button (in-game): Immediately reset the current game session.
+    *   `Mouse Click` on "Menu" button (in-game): Return to the Main Menu.
 
-# Building for other OpenGL targets
-If you need to build for a different OpenGL version than the default (OpenGL 3.3) you can specify an OpenGL version in your premake command line. Just modify the bat file or add the following to your command line
+*   **Pause Menu Controls**:
+    *   `P` or `Space`: Resume gameplay from the paused state.
 
-## For OpenGL 1.1
-`--graphics=opengl11`
+## Features
 
-## For OpenGL 2.1
-`--graphics=opengl21`
+*   🧱 **Core Tetris Gameplay**: Experience the timeless block dropping, moving, and line-clearing mechanics.
+*   🔄 **Block Rotation**: Execute precise clockwise rotations for optimal block placement.
+*   🚀 **Fast Drop**: Swiftly maneuver blocks to their desired positions with accelerated downward movement.
+*   ⬆️ **Upward Movement**: A unique feature allowing blocks to be moved upwards for advanced tactical adjustments.
+*   📊 **Score & Level System**: Track your progress with a dynamic scoring system and increasing difficulty levels.
+*   🎮 **Intuitive Menus**: Navigate effortlessly through the Main Menu, Pause Menu, High Scores, and Instructions screens.
+*   🎨 **Dynamic Coloring**: Blocks are rendered with a diverse palette of vibrant colors, enhancing visual appeal.
+*   💥 **Collision Detection**: Robust algorithms ensure accurate detection of collisions with walls, the game floor, and other settled blocks.
+*   💾 **Game State Management**: Comprehensive system to manage game progress, player scores, and block queues.
+*   🗄️ **FIFO Block Queue**: Get a strategic advantage by previewing upcoming blocks in a First-In-First-Out queue.
+*   📝 **Comprehensive Logging**: Integrated logger provides detailed debug, information, warning, and error messages for development and troubleshooting.
+*   🌐 **Cross-Platform Compatibility**: The project is configured to build seamlessly across various platforms, supporting MinGW-W64 and Visual Studio 2022.
+*   ⚙️ **Doxygen Integration**: Prepared for generating detailed source code documentation using Doxygen.
+*   🐍 **Python Utilities**: Includes a supplementary Python script for visualizing and calculating bitwise grid operations, aiding development insights.
 
-## For OpenGL 4.3
-`--graphics=opengl43`
+## Technologies Used
 
-## For OpenGLES 2.0
-`--graphics=opengles2`
+| Technology    | Description                                                     | Link                                                         |
+| :------------ | :-------------------------------------------------------------- | :----------------------------------------------------------- |
+| C             | The primary programming language underpinning all game logic and structure. | [Wikipedia](https://en.wikipedia.org/wiki/C_(programming_language)) |
+| raylib        | A simple, easy-to-use library designed for learning videogames programming. | [raylib.com](https://www.raylib.com/)                        |
+| Premake5      | A powerful command-line utility for generating project files for various IDEs and build systems. | [Premake](https://premake.github.io/)                        |
+| Doxygen       | A widely used documentation generation tool for multiple programming languages including C. | [Doxygen](https://www.doxygen.nl/index.html)                 |
+| MinGW-W64     | Minimalist GNU for Windows, providing a robust open-source C/C++ toolchain. | [MinGW-W64](https://mingw-w64.org/)                          |
+| Visual Studio | Microsoft's comprehensive integrated development environment for Windows application development. | [Visual Studio](https://visualstudio.microsoft.com/)         |
 
-## For OpenGLES 3.0
-`--graphics=opengles3`
+## License
 
-# License
-Copyright (c) 2020-2025 Jeffery Myers
+No explicit project-wide license file is provided. Users are advised to refer to individual source files for specific licensing details (e.g., `include/resource_dir.h` is MIT licensed, and `src/main.c` is marked with CC0 1.0 Public Domain).
 
-This software is provided "as-is", without any express or implied warranty. In no event 
-will the authors be held liable for any damages arising from the use of this software.
+## Author Info
 
-Permission is granted to anyone to use this software for any purpose, including commercial 
-applications, and to alter it and redistribute it freely, subject to the following restrictions:
+Connect with the developer of this project!
 
-  1. The origin of this software must not be misrepresented; you must not claim that you 
-  wrote the original software. If you use this software in a product, an acknowledgment 
-  in the product documentation would be appreciated but is not required.
+*   **[Your Name/Alias]**
+*   **LinkedIn**: [Your LinkedIn Profile]
+*   **Twitter**: [Your Twitter Handle]
 
-  2. Altered source versions must be plainly marked as such, and must not be misrepresented
-  as being the original software.
+## Badges
 
-  3. This notice may not be removed or altered from any source distribution.
+[![C Language](https://img.shields.io/badge/Language-C-blue.svg)](https://en.wikipedia.org/wiki/C_(programming_language))
+[![raylib](https://img.shields.io/badge/Powered%20by-raylib-orange.svg)](https://www.raylib.com/)
+[![Premake5](https://img.shields.io/badge/Build%20System-Premake5-yellowgreen.svg)](https://premake.github.io/)
+[![Documentation](https://img.shields.io/badge/Documentation%20Generated%20by-Doxygen-purple.svg)](https://www.doxygen.nl/)
+
+[![Readme was generated by Dokugen](https://img.shields.io/badge/Readme%20was%20generated%20by-Dokugen-brightgreen)](https://www.npmjs.com/package/dokugen)
