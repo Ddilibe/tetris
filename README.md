@@ -106,9 +106,9 @@ No explicit project-wide license file is provided. Users are advised to refer to
 
 Connect with the developer of this project!
 
-*   **[Your Name/Alias]**
-*   **LinkedIn**: [Your LinkedIn Profile]
-*   **Twitter**: [Your Twitter Handle]
+*   **Dilibe**
+*   [**LinkedIn**](https://www.linkedin.com/in/dilibe-fidelugwuowo)
+*   [**Twitter**](https://x.com/therealdilibe)
 
 ## Badges
 
